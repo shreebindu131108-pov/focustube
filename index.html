@@ -2,211 +2,235 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>FocusTube</title>
+
+  <!-- Inter font (Notion-like) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg-main: #0e0f13;
+      --bg-card: #151720;
+      --bg-soft: #1c1f2b;
+      --accent: #f5c16c; /* warm sun */
+      --text-main: #e8e9ed;
+      --text-muted: #9aa0b3;
+      --border-soft: rgba(255,255,255,0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(1200px circle at top, #181b26, var(--bg-main));
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 28px 16px 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
     }
+
+    /* HERO */
     .hero {
+      margin-top: 20vh;
       text-align: center;
-      opacity: 0.9;
+      max-width: 420px;
+      animation: fadeUp 0.8s ease;
     }
-    .hero img {
-      width: 120px;
-      margin-bottom: 20px;
+
+    .sun {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffd88a, var(--accent));
+      box-shadow: 0 0 50px rgba(245,193,108,0.35);
     }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 500;
+      margin: 0 0 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* SEARCH */
     .search-box {
+      width: 100%;
+      max-width: 520px;
+      margin-top: 28px;
       display: flex;
-      width: 60%;
-      max-width: 600px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      overflow: hidden;
     }
+
     input {
       flex: 1;
-      padding: 14px;
-      font-size: 16px;
+      padding: 16px 18px;
+      background: transparent;
       border: none;
-      border-radius: 25px 0 0 25px;
       outline: none;
+      font-size: 15px;
+      color: var(--text-main);
     }
+
+    input::placeholder {
+      color: var(--text-muted);
+    }
+
     button {
-      padding: 14px 22px;
-      font-size: 16px;
+      padding: 0 22px;
       border: none;
-      background: #ff0000;
-      color: #fff;
-      border-radius: 0 25px 25px 0;
+      background: linear-gradient(180deg, #ffd88a, var(--accent));
+      color: #1b1b1b;
+      font-weight: 500;
+      font-size: 14px;
       cursor: pointer;
     }
-    #results {
-      margin-top: 30px;
-      width: 90%;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+
+    /* STUDY BAR */. 
+    .study-bar {
+      width: 100%;
+      max-width: 520px;
+      margin-top: 22px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      animation: fadeUp 0.6s ease;
     }
+
+    /* RESULTS */
+    #results {
+      width: 100%;
+      max-width: 520px;
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 14px;
+      animation: fadeUp 0.6s ease;
+    }
+
     iframe {
       width: 100%;
-      height: 200px;
-      border-radius: 12px;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
       border: none;
+      background: #000;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (min-width: 768px) {
+      body { padding: 40px; }
+      h1 { font-size: 30px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- HERO -->
   <div class="hero" id="hero">
-    <img src="https://www.svgrepo.com/show/13671/play-button.svg" />
+    <div class="sun"></div>
     <h1>FocusTube</h1>
-    <p>No feed. No distractions. Search and watch.</p>
+    <p>A calm, intentional space to learn.
+      <br>No feed. No noise. Just study.</p>
   </div>
 
+  <!-- SEARCH -->
   <div class="search-box">
-    <input id="query" type="text" placeholder="Search YouTube..." />
-    <button onclick="search()">Search</button>
+    <input id="query" type="text" placeholder="Search a topic to study…" />
+    <button onclick="search()">Study</button>
   </div>
 
+  <!-- STUDY MODE BAR -->
+  <div class="study-bar" id="studyBar" style="display:none;">
+    <span id="timer">25:00</span>
+    <span>Deep Focus Session</span>
+  </div>
+
+  <!-- RESULTS -->
   <div id="results"></div>
 
   <script>
     const API_KEY = "AIzaSyCMTUDjLnJJBFUg3fLieTpo8e9Oh6G_65U";
+    let time = 25 * 60;
+    let timerInterval;
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        time--;
+        const min = String(Math.floor(time / 60)).padStart(2, '0');
+        const sec = String(time % 60).padStart(2, '0');
+        document.getElementById('timer').innerText = `${min}:${sec}`;
+        if (time <= 0) {
+          clearInterval(timerInterval);
+          alert('Session complete. Stand up. Breathe.');
+        }
+      }, 1000);
+    }
 
     async function search() {
-      const q = document.getElementById("query").value;
+      const q = document.getElementById('query').value.trim();
       if (!q) return;
 
-      document.getElementById("hero").style.display = "none";
+      document.getElementById('hero').style.display = 'none';
+      document.getElementById('studyBar').style.display = 'flex';
+      time = 25 * 60;
+      startTimer();
+
       const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=12&q=${q}&key=${API_KEY}`
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoDuration=long&maxResults=8&q=${q}&key=${API_KEY}`
       );
       const data = await res.json();
 
-      const results = document.getElementById("results");
-      results.innerHTML = "";
+      const results = document.getElementById('results');
+      results.innerHTML = '';
 
       data.items.forEach(item => {
-        const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube.com/embed/${item.id.videoId}`;
-        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        const card = document.createElement('div');
+        card.className = 'video-card';
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${item.id.videoId}?rel=0&autoplay=0`;
         iframe.allowFullscreen = true;
-        results.appendChild(iframe);
+
+        card.appendChild(iframe);
+        results.appendChild(card);
       });
     }
   </script>
 
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FocusTube</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .hero {
-      text-align: center;
-      opacity: 0.9;
-    }
-    .hero img {
-      width: 120px;
-      margin-bottom: 20px;
-    }
-    .search-box {
-      display: flex;
-      width: 60%;
-      max-width: 600px;
-    }
-    input {
-      flex: 1;
-      padding: 14px;
-      font-size: 16px;
-      border: none;
-      border-radius: 25px 0 0 25px;
-      outline: none;
-    }
-    button {
-      padding: 14px 22px;
-      font-size: 16px;
-      border: none;
-      background: #ff0000;
-      color: #fff;
-      border-radius: 0 25px 25px 0;
-      cursor: pointer;
-    }
-    #results {
-      margin-top: 30px;
-      width: 90%;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    iframe {
-      width: 100%;
-      height: 200px;
-      border-radius: 12px;
-      border: none;
-    }
-  </style>
-</head>
-<body>
 
-  <div class="hero" id="hero">
-    <img src="https://www.svgrepo.com/show/13671/play-button.svg" />
-    <h1>FocusTube</h1>
-    <p>No feed. No distractions. Search and watch.</p>
-  </div>
-
-  <div class="search-box">
-    <input id="query" type="text" placeholder="Search YouTube..." />
-    <button onclick="search()">Search</button>
-  </div>
-
-  <div id="results"></div>
-
-  <script>
-    const API_KEY = "AIzaSyCMTUDjLnJJBFUg3fLieTpo8e9Oh6G_65U";
-
-    async function search() {
-      const q = document.getElementById("query").value;
-      if (!q) return;
-
-      document.getElementById("hero").style.display = "none";
-      const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=12&q=${q}&key=${API_KEY}`
-      );
-      const data = await res.json();
-
-      const results = document.getElementById("results");
-      results.innerHTML = "";
-
-      data.items.forEach(item => {
-        const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube.com/embed/${item.id.videoId}`;
-        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        iframe.allowFullscreen = true;
-        results.appendChild(iframe);
-      });
-    }
-  </script>
-
-</body>
-</html>
