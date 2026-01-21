@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusTube</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .hero {
+      text-align: center;
+      opacity: 0.9;
+    }
+    .hero img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    .search-box {
+      display: flex;
+      width: 60%;
+      max-width: 600px;
+    }
+    input {
+      flex: 1;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px 0 0 25px;
+      outline: none;
+    }
+    button {
+      padding: 14px 22px;
+      font-size: 16px;
+      border: none;
+      background: #ff0000;
+      color: #fff;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+    }
+    #results {
+      margin-top: 30px;
+      width: 90%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    iframe {
+      width: 100%;
+      height: 200px;
+      border-radius: 12px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero" id="hero">
+    <img src="https://www.svgrepo.com/show/13671/play-button.svg" />
+    <h1>FocusTube</h1>
+    <p>No feed. No distractions. Search and watch.</p>
+  </div>
+
+  <div class="search-box">
+    <input id="query" type="text" placeholder="Search YouTube..." />
+    <button onclick="search()">Search</button>
+  </div>
+
+  <div id="results"></div>
+
+  <script>
+    const API_KEY = "YOUR_YOUTUBE_DATA_API_KEY";
+
+    async function search() {
+      const q = document.getElementById("query").value;
+      if (!q) return;
+
+      document.getElementById("hero").style.display = "none";
+      const res = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=12&q=${q}&key=${API_KEY}`
+      );
+      const data = await res.json();
+
+      const results = document.getElementById("results");
+      results.innerHTML = "";
+
+      data.items.forEach(item => {
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${item.id.videoId}`;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        results.appendChild(iframe);
+      });
+    }
+  </script>
+
+</body>
+</html>
+
