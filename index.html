@@ -2,235 +2,221 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>FocusTube</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyTube</title>
 
-  <!-- Inter font (Notion-like) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-main: #0e0f13;
-      --bg-card: #151720;
-      --bg-soft: #1c1f2b;
-      --accent: #f5c16c; /* warm sun */
-      --text-main: #e8e9ed;
-      --text-muted: #9aa0b3;
-      --border-soft: rgba(255,255,255,0.06);
-    }
-
     * {
       box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+      font-family: 'Inter', system-ui, sans-serif;
     }
 
     body {
       margin: 0;
-      font-family: 'Inter', system-ui, sans-serif;
-      background: radial-gradient(1200px circle at top, #181b26, var(--bg-main));
-      color: var(--text-main);
+      background:
+        radial-gradient(circle at top, rgba(255,180,80,0.08), transparent 40%),
+        #0e0f12;
+      color: #eaeaea;
       min-height: 100vh;
-      padding: 28px 16px 40px;
+    }
+
+    header {
+      padding: 16px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* HERO */
-    .hero {
-      margin-top: 20vh;
-      text-align: center;
-      max-width: 420px;
-      animation: fadeUp 0.8s ease;
-    }
-
-    .sun {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 24px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ffd88a, var(--accent));
-      box-shadow: 0 0 50px rgba(245,193,108,0.35);
-    }
-
-    h1 {
-      font-size: 26px;
-      font-weight: 500;
-      margin: 0 0 10px;
-      letter-spacing: -0.3px;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    /* SEARCH */
-    .search-box {
-      width: 100%;
-      max-width: 520px;
-      margin-top: 28px;
-      display: flex;
-      background: var(--bg-soft);
-      border: 1px solid var(--border-soft);
-      border-radius: 16px;
-      overflow: hidden;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      background: rgba(14,15,18,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 10;
     }
 
     input {
       flex: 1;
-      padding: 16px 18px;
-      background: transparent;
+      padding: 12px 14px;
+      border-radius: 10px;
       border: none;
-      outline: none;
+      background: #1a1c22;
+      color: #fff;
       font-size: 15px;
-      color: var(--text-main);
-    }
-
-    input::placeholder {
-      color: var(--text-muted);
+      outline: none;
     }
 
     button {
-      padding: 0 22px;
+      padding: 12px 16px;
+      border-radius: 10px;
       border: none;
-      background: linear-gradient(180deg, #ffd88a, var(--accent));
-      color: #1b1b1b;
-      font-weight: 500;
-      font-size: 14px;
+      background: #ffb454;
+      color: #000;
+      font-weight: 600;
       cursor: pointer;
     }
 
-    /* STUDY BAR */. 
-    .study-bar {
-      width: 100%;
-      max-width: 520px;
-      margin-top: 22px;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
+    main {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #15171d;
       border-radius: 14px;
-      font-size: 13px;
-      color: var(--text-muted);
-      animation: fadeUp 0.6s ease;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+      cursor: pointer;
+      transition: transform 0.15s ease;
     }
 
-    /* RESULTS */
-    #results {
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .thumb {
       width: 100%;
-      max-width: 520px;
-      margin-top: 26px;
-      display: flex;
-      flex-direction: column;
-      gap: 26px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
     }
 
-    .video-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
-      border-radius: 18px;
-      padding: 14px;
-      animation: fadeUp 0.6s ease;
+    .info {
+      padding: 12px;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .channel {
+      font-size: 12px;
+      color: #ffb454;
+      cursor: pointer;
+      width: fit-content;
     }
 
     iframe {
+      position: fixed;
+      inset: 0;
       width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 14px;
+      height: 100%;
       border: none;
-      background: #000;
+      background: black;
+      z-index: 100;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (min-width: 768px) {
-      body { padding: 40px; }
-      h1 { font-size: 30px; }
+    .back {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 101;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <div class="hero" id="hero">
-    <div class="sun"></div>
-    <h1>FocusTube</h1>
-    <p>A calm, intentional space to learn.
-      <br>No feed. No noise. Just study.</p>
-  </div>
+<header>
+  <input id="searchInput" placeholder="Search to study…" />
+  <button onclick="search()">Search</button>
+</header>
 
-  <!-- SEARCH -->
-  <div class="search-box">
-    <input id="query" type="text" placeholder="Search a topic to study…" />
-    <button onclick="search()">Study</button>
-  </div>
+<main id="results"></main>
 
-  <!-- STUDY MODE BAR -->
-  <div class="study-bar" id="studyBar" style="display:none;">
-    <span id="timer">25:00</span>
-    <span>Deep Focus Session</span>
-  </div>
+<script>
+  const API_KEY = "AIzaSyCMTUDjLnJJBFUg3fLieTpo8e9Oh6G_65U";
 
-  <!-- RESULTS -->
-  <div id="results"></div>
+  let lastQuery = localStorage.getItem("query") || "";
+  let lastChannel = localStorage.getItem("channel") || "";
+  let lastVideo = localStorage.getItem("video") || "";
 
-  <script>
-    const API_KEY = "AIzaSyCMTUDjLnJJBFUg3fLieTpo8e9Oh6G_65U";
-    let time = 25 * 60;
-    let timerInterval;
+  const results = document.getElementById("results");
+  const input = document.getElementById("searchInput");
 
-    function startTimer() {
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        time--;
-        const min = String(Math.floor(time / 60)).padStart(2, '0');
-        const sec = String(time % 60).padStart(2, '0');
-        document.getElementById('timer').innerText = `${min}:${sec}`;
-        if (time <= 0) {
-          clearInterval(timerInterval);
-          alert('Session complete. Stand up. Breathe.');
-        }
-      }, 1000);
-    }
+  input.value = lastQuery;
 
-    async function search() {
-      const q = document.getElementById('query').value.trim();
-      if (!q) return;
+  if (lastVideo) {
+    playVideo(lastVideo);
+  } else if (lastChannel) {
+    loadChannel(lastChannel);
+  } else if (lastQuery) {
+    search();
+  }
 
-      document.getElementById('hero').style.display = 'none';
-      document.getElementById('studyBar').style.display = 'flex';
-      time = 25 * 60;
-      startTimer();
+  function search() {
+    const q = input.value.trim();
+    if (!q) return;
+    localStorage.setItem("query", q);
+    localStorage.removeItem("channel");
+    fetchVideos(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=20&q=${encodeURIComponent(q)}&key=${API_KEY}`);
+  }
 
-      const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoDuration=long&maxResults=8&q=${q}&key=${API_KEY}`
-      );
-      const data = await res.json();
+  function loadChannel(channelId) {
+    localStorage.setItem("channel", channelId);
+    localStorage.removeItem("query");
+    fetchVideos(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&order=date&maxResults=20&channelId=${channelId}&key=${API_KEY}`);
+  }
 
-      const results = document.getElementById('results');
-      results.innerHTML = '';
+  function fetchVideos(url) {
+    results.innerHTML = "";
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        data.items.forEach(v => {
+          const card = document.createElement("div");
+          card.className = "card";
 
-      data.items.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'video-card';
+          card.innerHTML = `
+            <img class="thumb" src="${v.snippet.thumbnails.medium.url}">
+            <div class="info">
+              <div class="title">${v.snippet.title}</div>
+              <div class="channel">${v.snippet.channelTitle}</div>
+            </div>
+          `;
 
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube.com/embed/${item.id.videoId}?rel=0&autoplay=0`;
-        iframe.allowFullscreen = true;
+          card.querySelector(".thumb").onclick = () => {
+            playVideo(v.id.videoId);
+          };
 
-        card.appendChild(iframe);
-        results.appendChild(card);
+          card.querySelector(".channel").onclick = (e) => {
+            e.stopPropagation();
+            loadChannel(v.snippet.channelId);
+          };
+
+          results.appendChild(card);
+        });
       });
-    }
-  </script>
+  }
+
+  function playVideo(videoId) {
+    localStorage.setItem("video", videoId);
+
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+
+    const back = document.createElement("div");
+    back.className = "back";
+    back.innerText = "← Back";
+    back.onclick = () => {
+      iframe.remove();
+      back.remove();
+      localStorage.removeItem("video");
+    };
+
+    document.body.appendChild(iframe);
+    document.body.appendChild(back);
+  }
+</script>
 
 </body>
 </html>
-
