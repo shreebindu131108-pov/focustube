@@ -1,129 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudyTube</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyTube</title>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
 
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top, rgba(255,180,80,0.08), transparent 40%),
-        #0e0f12;
-      color: #eaeaea;
-      min-height: 100vh;
-    }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(255,180,80,0.10), transparent 45%),
+    #0d0f13;
+  color: #eaeaea;
+  min-height: 100vh;
+}
 
-    header {
-      padding: 16px;
-      display: flex;
-      gap: 10px;
-      position: sticky;
-      top: 0;
-      background: rgba(14,15,18,0.85);
-      backdrop-filter: blur(12px);
-      z-index: 10;
-    }
+header {
+  position: sticky;
+  top: 0;
+  padding: 16px;
+  display: flex;
+  gap: 10px;
+  background: rgba(13,15,19,0.85);
+  backdrop-filter: blur(14px);
+  z-index: 10;
+}
 
-    input {
-      flex: 1;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: none;
-      background: #1a1c22;
-      color: #fff;
-      font-size: 15px;
-      outline: none;
-    }
+input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  background: #1a1d24;
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
 
-    button {
-      padding: 12px 16px;
-      border-radius: 10px;
-      border: none;
-      background: #ffb454;
-      color: #000;
-      font-weight: 600;
-      cursor: pointer;
-    }
+button {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  background: #ffb454;
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-    main {
-      padding: 16px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
+main {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
 
-    .card {
-      background: #15171d;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-      cursor: pointer;
-      transition: transform 0.15s ease;
-    }
+.card {
+  background: #151822;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+  transition: transform .15s ease;
+}
 
-    .card:hover {
-      transform: translateY(-2px);
-    }
+.card:hover {
+  transform: translateY(-2px);
+}
 
-    .thumb {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-    }
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  cursor: pointer;
+}
 
-    .info {
-      padding: 12px;
-    }
+.info {
+  padding: 12px;
+}
 
-    .title {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.35;
-      margin-bottom: 6px;
-    }
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
 
-    .channel {
-      font-size: 12px;
-      color: #ffb454;
-      cursor: pointer;
-      width: fit-content;
-    }
+.channel {
+  font-size: 12px;
+  color: #ffb454;
+  cursor: pointer;
+  width: fit-content;
+}
 
-    iframe {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: black;
-      z-index: 100;
-    }
+#loadMore {
+  margin: 30px auto;
+  display: block;
+}
 
-    .back {
-      position: fixed;
-      top: 16px;
-      left: 16px;
-      z-index: 101;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-    }
-  </style>
+iframe {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 100;
+  background: black;
+}
+
+.back {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 101;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
@@ -134,88 +138,119 @@
 <main id="results"></main>
 
 <script>
-  const API_KEY = "AIzaSyCMTUDjLnJJBFUg3fLieTpo8e9Oh6G_65U";
+const API_KEY = "AIzaSyCMTUDjLnJJBFUg3fLieTpo8e9Oh6G_65U";
 
-  let lastQuery = localStorage.getItem("query") || "";
-  let lastChannel = localStorage.getItem("channel") || "";
-  let lastVideo = localStorage.getItem("video") || "";
+let nextPageToken = "";
+let lastQuery = localStorage.getItem("query");
+let lastChannel = localStorage.getItem("channel");
+let lastVideo = localStorage.getItem("video");
 
-  const results = document.getElementById("results");
-  const input = document.getElementById("searchInput");
+const results = document.getElementById("results");
+const input = document.getElementById("searchInput");
 
-  input.value = lastQuery;
+if (lastQuery) input.value = lastQuery;
 
-  if (lastVideo) {
-    playVideo(lastVideo);
-  } else if (lastChannel) {
-    loadChannel(lastChannel);
-  } else if (lastQuery) {
-    search();
-  }
+if (lastVideo) {
+  playVideo(lastVideo);
+} else if (lastChannel) {
+  loadChannel(lastChannel);
+} else if (lastQuery) {
+  search();
+}
 
-  function search() {
-    const q = input.value.trim();
-    if (!q) return;
+function search(loadMore = false) {
+  const q = input.value.trim();
+  if (!q) return;
+
+  if (!loadMore) {
+    results.innerHTML = "";
+    nextPageToken = "";
     localStorage.setItem("query", q);
     localStorage.removeItem("channel");
-    fetchVideos(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=20&q=${encodeURIComponent(q)}&key=${API_KEY}`);
   }
 
-  function loadChannel(channelId) {
+  let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&order=relevance&maxResults=20&q=${encodeURIComponent(q)}&key=${API_KEY}`;
+  if (nextPageToken) url += `&pageToken=${nextPageToken}`;
+
+  fetchVideos(url);
+}
+
+function loadChannel(channelId, loadMore = false) {
+  if (!loadMore) {
+    results.innerHTML = "";
+    nextPageToken = "";
     localStorage.setItem("channel", channelId);
     localStorage.removeItem("query");
-    fetchVideos(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&order=date&maxResults=20&channelId=${channelId}&key=${API_KEY}`);
   }
 
-  function fetchVideos(url) {
-    results.innerHTML = "";
-    fetch(url)
-      .then(r => r.json())
-      .then(data => {
-        data.items.forEach(v => {
-          const card = document.createElement("div");
-          card.className = "card";
+  let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&order=date&maxResults=20&channelId=${channelId}&key=${API_KEY}`;
+  if (nextPageToken) url += `&pageToken=${nextPageToken}`;
 
-          card.innerHTML = `
-            <img class="thumb" src="${v.snippet.thumbnails.medium.url}">
-            <div class="info">
-              <div class="title">${v.snippet.title}</div>
-              <div class="channel">${v.snippet.channelTitle}</div>
-            </div>
-          `;
+  fetchVideos(url, () => loadChannel(channelId, true));
+}
 
-          card.querySelector(".thumb").onclick = () => {
-            playVideo(v.id.videoId);
-          };
+function fetchVideos(url, loadMoreCallback) {
+  fetch(url)
+    .then(r => r.json())
+    .then(data => {
+      nextPageToken = data.nextPageToken || "";
 
-          card.querySelector(".channel").onclick = (e) => {
-            e.stopPropagation();
-            loadChannel(v.snippet.channelId);
-          };
+      data.items.forEach(v => {
+        const card = document.createElement("div");
+        card.className = "card";
 
-          results.appendChild(card);
-        });
+        card.innerHTML = `
+          <img class="thumb" src="${v.snippet.thumbnails.medium.url}">
+          <div class="info">
+            <div class="title">${v.snippet.title}</div>
+            <div class="channel">${v.snippet.channelTitle}</div>
+          </div>
+        `;
+
+        card.querySelector(".thumb").onclick = () => playVideo(v.id.videoId);
+        card.querySelector(".channel").onclick = e => {
+          e.stopPropagation();
+          loadChannel(v.snippet.channelId);
+        };
+
+        results.appendChild(card);
       });
+
+      setupLoadMore(loadMoreCallback);
+    });
+}
+
+function setupLoadMore(callback) {
+  let btn = document.getElementById("loadMore");
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.id = "loadMore";
+    btn.textContent = "Load more";
+    document.body.appendChild(btn);
   }
 
-  function playVideo(videoId) {
-    localStorage.setItem("video", videoId);
+  btn.onclick = callback || (() => search(true));
+  btn.style.display = nextPageToken ? "block" : "none";
+}
 
-    const iframe = document.createElement("iframe");
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+function playVideo(videoId) {
+  localStorage.setItem("video", videoId);
 
-    const back = document.createElement("div");
-    back.className = "back";
-    back.innerText = "← Back";
-    back.onclick = () => {
-      iframe.remove();
-      back.remove();
-      localStorage.removeItem("video");
-    };
+  const iframe = document.createElement("iframe");
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
 
-    document.body.appendChild(iframe);
-    document.body.appendChild(back);
-  }
+  const back = document.createElement("div");
+  back.className = "back";
+  back.innerText = "← Back";
+  back.onclick = () => {
+    iframe.remove();
+    back.remove();
+    localStorage.removeItem("video");
+  };
+
+  document.body.appendChild(iframe);
+  document.body.appendChild(back);
+}
 </script>
 
 </body>
